@@ -38,7 +38,7 @@ namespace RSSAgregator
                 Debug.WriteLine("BONJOUR MONDE : " + item.Content);
 
             }
-            
+
 
         }
 

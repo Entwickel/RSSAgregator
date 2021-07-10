@@ -17,7 +17,7 @@ namespace RSSAgregator
             x_fenetre = x;
             y_fenetre = y;
             Initialiser_taille_fenetre(x, y);
-            RSSFile cur_flux = new RSSFile(Environment.CurrentDirectory + @"\Nautilion.xml\");
+            RSSFile cur_flux = new RSSFile(@"C:\Users\pierr\source\repos\RSSAgregator\Nautilion.xml");
             if (cur_flux.is_rss_loaded == true) //on vérifie si le contenu à bien été chargé, sinon on traite
                 cur_flux.Display_RSS_Content();
             else
