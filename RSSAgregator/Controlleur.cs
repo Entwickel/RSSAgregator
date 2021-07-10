@@ -17,6 +17,7 @@ namespace RSSAgregator
             y_fenetre = y;
             Initialiser_taille_fenetre(x, y);
             RSSFile cur_flux = new RSSFile("https://www.nautiljon.com/actualite/rss.php");
+            cur_flux.Display_RSS_Content();
         }
 
         public void Initialiser_taille_fenetre(int x, int y)
