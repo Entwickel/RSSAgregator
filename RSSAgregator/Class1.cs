@@ -9,16 +9,21 @@ namespace RSSAgregator
     class RSSFile
     {
         SyndicationFeed rssFeed;
+        public bool is_rss_loaded; //verouille en écriture
         public RSSFile(string url)
         {
-            XmlReader reader = XmlReader.Create(url);
-            if (reader == null)
+            is_rss_loaded = false;
+            try
+            {
+
+                XmlReader reader = XmlReader.Create(url);
+                rssFeed = SyndicationFeed.Load(reader);
+                is_rss_loaded = true;
+
+            }
+            catch
             {
                 Debug.WriteLine("erreur");
-            }
-            else
-            {
-                rssFeed = SyndicationFeed.Load(reader);
 
             }
 
@@ -29,8 +34,8 @@ namespace RSSAgregator
             foreach (SyndicationItem item in rssFeed.Items)
             {
                 Debug.WriteLine("BONJOUR MONDE : " + item.Title.Text);
-                Debug.WriteLine("BONJOUR MONDE : " + item.Links.ToString());
                 Debug.WriteLine("BONJOUR MONDE : " + item.PublishDate);
+                Debug.WriteLine("BONJOUR MONDE : " + item.Content);
 
             }
             
