@@ -17,7 +17,7 @@
             <MenuItem Header="_Fichier">
                 <MenuItem Header="_Nouveau" />
                 <MenuItem Header="_Charger" />
-            </MenuItem>                
+            </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Command="Cut" />
                 <MenuItem Command="Copy" />
@@ -30,18 +30,17 @@
                 <MenuItem Header="_DE" IsCheckable="True" />
                 <MenuItem Header="_JP" IsCheckable="True" />
 
-            </MenuItem>            
+            </MenuItem>
 
         </Menu>
+        <TabControl  x:Name="tbCtrl" HorizontalAlignment="Left" Height="354" Margin="54,36,0,0" VerticalAlignment="Top" Width="697" Loaded="tbCtrl_Loaded">
+            <TabItem Header="Tab - 01">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="btnAdd" Content="Add New Tab" HorizontalAlignment="Left" Margin="68,95,0,0" VerticalAlignment="Top" Width="109" Height="29" Click="btnAdd_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
-        <ListView Name = "ListProfile" Margin="136,31,136,69">
-            <!-- 150 red marge 20 -->
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
 
     </Grid>
 
