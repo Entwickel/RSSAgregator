@@ -23,6 +23,11 @@ namespace RSSAgregator
         public MainWindow()
         {
             InitializeComponent();
+            Controlleur rss = new Controlleur(800,600); //initialise la taille de la fenetre et lance l'instance principale
+
         }
+
+
+   
     }
 }
