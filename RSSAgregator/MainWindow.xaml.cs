@@ -21,6 +21,7 @@ namespace RSSAgregator
     public partial class MainWindow : Window
     {
         TabControl tbControl; //utiliser pour gérer les onglets
+        int number_tab = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,10 +36,11 @@ namespace RSSAgregator
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            number_tab += 1;
             TabItem newTabItem = new TabItem
             {
-                Header = "Test",
-                Name = "Test"
+                Header = "Onglet" + number_tab.ToString(),
+                Name = "Onglet" + number_tab.ToString()
             };
             tbControl.Items.Add(newTabItem);
         }
