@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
 using System.ServiceModel.Syndication;
+using System.Collections.Specialized;
 
 namespace RSSAgregator
 {
@@ -10,6 +11,7 @@ namespace RSSAgregator
     {
         SyndicationFeed rssFeed;
         public bool is_rss_loaded; //verouille en écriture
+        public List<MyItems> list_rss_content = new List<MyItems>();
         public RSSFile(string url)
         {
             is_rss_loaded = false;
@@ -29,15 +31,22 @@ namespace RSSAgregator
 
         }
 
-        public void Display_RSS_Content()
+        public int Obtenir_RSS_Content(int nombre)
         {
+            //Contain each row for RSS
+            int increment = 0;
             foreach (SyndicationItem item in rssFeed.Items)
             {
-                Debug.WriteLine("BONJOUR MONDE : " + item.Title.Text);
-                Debug.WriteLine("BONJOUR MONDE : " + item.PublishDate);
-                Debug.WriteLine("BONJOUR MONDE : " + item.Content);
-
+                MyItems rss_row = new MyItems();
+                rss_row.Titre = item.Title.Text;
+                rss_row.Date = item.PublishDate.ToString();
+                list_rss_content.Add(rss_row);
+                increment = increment + 1;
+                if (increment >= nombre)
+                    return Constants.SUCCESS;
             }
+            return Constants.SUCCESS;
+
 
 
         }

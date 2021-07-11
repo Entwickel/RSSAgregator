@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,30 @@ namespace RSSAgregator
 
         }
 
+        //Permet d'afficher les infos dans la listeview
+        public void display_RSS(List<MyItems> rss_flux)
+        {
+            GridView gridView = new GridView();
+            ListProfile.View = gridView;
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = "Date",
+                DisplayMemberBinding = new Binding("Date")
+            });
+            gridView.Columns.Add(new GridViewColumn
+            {
+                Header = "Titre",
+                DisplayMemberBinding = new Binding("Titre")
+            });
+
+            //TODO
+            foreach (MyItems rss in rss_flux)
+            {
+                ListProfile.Items.Add(rss);
+
+            }
+
+        }
 
         // Interaction logic for Window Event
         private void tbCtrl_Loaded(object sender, RoutedEventArgs e)

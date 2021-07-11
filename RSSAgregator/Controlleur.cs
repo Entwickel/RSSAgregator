@@ -39,15 +39,32 @@ namespace RSSAgregator
 
         }
 
-        public void Charger_flux_rss()
+        public int Charger_flux_rss()
         {
             string url = Charger_profile(Environment.CurrentDirectory + @"\profile1.txt");
             Debug.WriteLine("URL = ::::::" + url);
             bool success = model.Obtenir_flux_rss(url);
-            if (success == true)     //on vérifie si le contenu à bien été chargé, sinon on traite
-                model.cur_flux.Display_RSS_Content();
+            if (success == true)
+            {//on vérifie si le contenu à bien été chargé, sinon on traite
+                int code_return = model.cur_flux.Obtenir_RSS_Content(3);
+                if (code_return == Constants.SUCCESS)
+                {
+                    var main = App.Current.MainWindow as MainWindow;
+                    main.display_RSS(model.cur_flux.list_rss_content);
+                    return Constants.SUCCESS;
+                }
+                else
+                {
+                    //END programm
+                    return Constants.FAILURE; 
+
+                }
+
+            }
             else
-                Erreur_chargement_rss();
+            {
+                return Constants.FAILURE;
+            }
 
         }
 
