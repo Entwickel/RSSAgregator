@@ -41,44 +41,46 @@ namespace RSSAgregator
 
         public int Charger_flux_rss()
         {
-            string url = Charger_profile(Environment.CurrentDirectory + @"\profile1.txt");
-            Debug.WriteLine("URL = ::::::" + url);
-            bool success = model.Obtenir_flux_rss(url);
-            if (success == true)
-            {//on vérifie si le contenu à bien été chargé, sinon on traite
-                int code_return = model.cur_flux.Obtenir_RSS_Content(3);
-                if (code_return == Constants.SUCCESS)
-                {
-                    var main = App.Current.MainWindow as MainWindow;
-                    main.display_RSS(model.cur_flux.list_rss_content);
-                    return Constants.SUCCESS;
+            string[] profile = Charger_profile(Environment.CurrentDirectory + @"\profile1.txt");
+            foreach (string url in profile)
+            {
+                Debug.WriteLine("URL = ::::::" + url);
+                bool success = model.Obtenir_flux_rss(url);
+                if (success == true)
+                {//on vérifie si le contenu à bien été chargé, sinon on traite
+                    int code_return = model.cur_flux.Obtenir_RSS_Content(3);
+                    if (code_return == Constants.SUCCESS)
+                    {
+                        var main = App.Current.MainWindow as MainWindow;
+                        main.display_RSS(model.cur_flux.list_rss_content);
+                    }
+                    else
+                    {
+                        //END programm
+                        return Constants.FAILURE;
+
+                    }
+
                 }
                 else
                 {
-                    //END programm
-                    return Constants.FAILURE; 
-
+                    return Constants.FAILURE;
                 }
-
             }
-            else
-            {
-                return Constants.FAILURE;
-            }
-
+            return Constants.SUCCESS;
         }
 
-        public string Charger_profile(string path)
+        public string[] Charger_profile(string path)
         {
             Debug.WriteLine(path);
             if (File.Exists(path))
             {
                 //première URL
-                return File.ReadAllLines(path)[0];
+                return File.ReadAllLines(path);
             }
             else
             {
-                return ""; 
+                return null; 
                 //ERREUR
             }
             //TODO recup parametre initialisation
