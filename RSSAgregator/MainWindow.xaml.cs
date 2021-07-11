@@ -20,15 +20,17 @@ namespace RSSAgregator
     /// </summary>
     public partial class MainWindow : Window
     {
-        TabControl tbControl; //utiliser pour gérer les onglets
+        TabControl tbControl; //Main Widget to manage tab
         int number_tab = 0;
         public MainWindow()
         {
             InitializeComponent();
-            Controlleur rss = new Controlleur(800,600); //initialise la taille de la fenetre et lance l'instance principale
+            Controlleur rss = new Controlleur(800,600); //initialise window size and run main instance
 
         }
 
+
+        // Interaction logic for Window Event
         private void tbCtrl_Loaded(object sender, RoutedEventArgs e)
         {
             tbControl = (sender as TabControl);
@@ -42,7 +44,21 @@ namespace RSSAgregator
                 Header = "Onglet" + number_tab.ToString(),
                 Name = "Onglet" + number_tab.ToString()
             };
+            //TODO propoer the gestion of the new_tab item
+
+            //Store adding new in a temp var
+            TabItem temp = Adding_New_Tab;
+
+            //Remove new_tab_item for add him on the left after
+            tbControl.Items.Remove(Adding_New_Tab);
+            newTabItem.IsSelected = true;
             tbControl.Items.Add(newTabItem);
+
+            //Finally add temporay item at the end of the list tab, not really proper ..
+            tbControl.Items.Add(temp);
+
         }
+
+
     }
 }
