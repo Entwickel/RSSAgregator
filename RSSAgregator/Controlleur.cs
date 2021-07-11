@@ -42,17 +42,24 @@ namespace RSSAgregator
         public int Charger_flux_rss()
         {
             string[] profile = Charger_profile(Environment.CurrentDirectory + @"\profile1.txt");
+            int current_tab = 1; //tab start at 1
             foreach (string url in profile)
             {
                 Debug.WriteLine("URL = ::::::" + url);
                 bool success = model.Obtenir_flux_rss(url);
+                //check if content has been loaded
                 if (success == true)
-                {//on vérifie si le contenu à bien été chargé, sinon on traite
+                {
                     int code_return = model.cur_flux.Obtenir_RSS_Content(3);
                     if (code_return == Constants.SUCCESS)
                     {
+                        //get the MainWindow Instance
                         var main = App.Current.MainWindow as MainWindow;
-                        main.display_RSS(model.cur_flux.list_rss_content);
+                        Debug.WriteLine(model.cur_flux.rss_source);
+                        string chaine = model.cur_flux.rss_source;
+                        Debug.WriteLine(chaine);
+                        main.display_RSS(model.cur_flux.list_rss_content, current_tab, chaine);
+                        current_tab += 1;
                     }
                     else
                     {

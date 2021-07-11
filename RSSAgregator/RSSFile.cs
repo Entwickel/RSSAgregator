@@ -9,9 +9,10 @@ namespace RSSAgregator
 {
     class RSSFile
     {
-        SyndicationFeed rssFeed;
-        public bool is_rss_loaded; //verouille en écriture
+        public SyndicationFeed rssFeed;
+        public bool is_rss_loaded; 
         public List<MyItems> list_rss_content = new List<MyItems>();
+        public string rss_source;
         public RSSFile(string url)
         {
             is_rss_loaded = false;
@@ -35,6 +36,9 @@ namespace RSSAgregator
         {
             //Contain each row for RSS
             int increment = 0;
+            rss_source = rssFeed.Generator;
+            if (rss_source == null)
+                rss_source = rssFeed.Title.Text;
             foreach (SyndicationItem item in rssFeed.Items)
             {
                 MyItems rss_row = new MyItems();

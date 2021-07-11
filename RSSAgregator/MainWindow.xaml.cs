@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -23,17 +24,28 @@ namespace RSSAgregator
     public partial class MainWindow : Window
     {
         TabControl tbControl; //Main Widget to manage tab
-        int number_tab = 0;
+        int number_tab = 1;
+        bool tbCtrl_Is_Loaded = false;
+        //TODO properly Queue
+        public List<String> tab_to_create;
         public MainWindow()
         {
             InitializeComponent();
+            //instancie the queue for the tab management
+            tab_to_create = new List<String>();
             Controlleur rss = new Controlleur(800,600); //initialise window size and run main instance
-
         }
 
         //Permet d'afficher les infos dans la listeview
-        public void display_RSS(List<MyItems> rss_flux)
+        public void display_RSS(List<MyItems> rss_flux, int tab, string tab_name)
         {
+            //if tab is not exist
+            if (tab > number_tab)
+            {
+                tab_to_create.Add(tab_name);
+                Debug.WriteLine("LA TABLE EST EGALE A " + tab_to_create[0]);
+            }
+
             GridView gridView = new GridView();
             ListProfile.View = gridView;
             gridView.Columns.Add(new GridViewColumn
@@ -56,19 +68,12 @@ namespace RSSAgregator
 
         }
 
-        // Interaction logic for Window Event
-        private void tbCtrl_Loaded(object sender, RoutedEventArgs e)
+        public void Create_tab(string name,int number)
         {
-            tbControl = (sender as TabControl);
-        }
-
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            number_tab += 1;
             TabItem newTabItem = new TabItem
             {
-                Header = "Onglet" + number_tab.ToString(),
-                Name = "Onglet" + number_tab.ToString()
+                Header = name,
+                Name = "tab" + number_tab.ToString()
             };
             //TODO propoer the gestion of the new_tab item
 
@@ -79,10 +84,37 @@ namespace RSSAgregator
             tbControl.Items.Remove(Adding_New_Tab);
             newTabItem.IsSelected = true;
             tbControl.Items.Add(newTabItem);
+            number_tab += 1;
 
             //Finally add temporay item at the end of the list tab, not really proper ..
             tbControl.Items.Add(temp);
 
+        }
+
+        public void Manage_tab_in_queue()
+        {
+            int current_tab = 1;
+            foreach(string name in tab_to_create) 
+            {
+                Create_tab(name, current_tab);
+            }
+
+
+        }
+
+        // Interaction logic for Window Event
+        private void tbCtrl_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbControl = (sender as TabControl);
+            tbCtrl_Is_Loaded = true;
+            Manage_tab_in_queue();
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            int tab_indice = number_tab + 1;
+            Create_tab("Onglet" + tab_indice.ToString(),tab_indice);
+         
         }
 
 
