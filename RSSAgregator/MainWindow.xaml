@@ -33,10 +33,9 @@
             </MenuItem>
 
         </Menu>
-        <TabControl  x:Name="tbCtrl" HorizontalAlignment="Left" Height="547" Margin="20,0,0,0" VerticalAlignment="Center" Width="732" Loaded="tbCtrl_Loaded">
+        <TabControl  x:Name="tbCtrl" HorizontalAlignment="Left" Height="500" Margin="20,0,0,0" VerticalAlignment="Center" Width="700" Loaded="tbCtrl_Loaded">
             <TabItem Header="Tab - 01">
                 <Grid Background="#FFE5E5E5">
-                    <Button x:Name="btnAdd" Content="Add New Tab" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="109" Height="29" Click="btnAdd_Click"/>
                     <ListView Name = "ListProfile" Grid.Row="1" Visibility="Visible">
                         <!-- 150 red marge 20 -->
                         <ListView.View>
