@@ -27,12 +27,12 @@ namespace RSSAgregator
         int number_tab = 1;
         bool tbCtrl_Is_Loaded = false;
         //TODO properly Queue
-        public List<String> tab_to_create;
+        public Queue<String> tab_to_create;
         public MainWindow()
         {
             InitializeComponent();
             //instancie the queue for the tab management
-            tab_to_create = new List<String>();
+            tab_to_create = new Queue<String>();
             Controlleur rss = new Controlleur(800,600); //initialise window size and run main instance
         }
 
@@ -42,8 +42,7 @@ namespace RSSAgregator
             //if tab is not exist
             if (tab > number_tab)
             {
-                tab_to_create.Add(tab_name);
-                Debug.WriteLine("LA TABLE EST EGALE A " + tab_to_create[0]);
+                tab_to_create.Enqueue(tab_name);
             }
 
             GridView gridView = new GridView();
